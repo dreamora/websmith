@@ -5,7 +5,7 @@
  * ---------------------------------------------------------------------------------------------
  */
 import { AddonRegistry, CompilerAddon } from "./addons";
-import type { CompilationContext } from "./compilation";
+import { CompilationContext, CompilationHost, createSharedHost } from "./compilation";
 import type { CompileFragment } from "./Compiler";
 import { Compiler } from "./Compiler";
 import type { CompilerOptions } from "./CompilerOptions";
@@ -26,7 +26,10 @@ import { NoReporter } from "./NoReporter";
 export {
     AddonRegistry,
     CompilerAddon,
+    createSharedHost,
     CompilationConfig,
+    CompilationContext,
+    CompilationHost,
     Compiler,
     DefaultReporter,
     NoReporter,
@@ -44,4 +47,4 @@ export {
     // visitNode,
     // writeNode,
 };
-export type { CompileFragment, CompilerOptions, CompilationContext };
+export type { CompileFragment, CompilerOptions };

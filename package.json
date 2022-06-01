@@ -31,7 +31,8 @@
             "packages/cli",
             "packages/webpack",
             "packages/test",
-            "packages/examples"
+            "packages/examples",
+            "packages/webpack-lite"
         ]
     },
     "scripts": {

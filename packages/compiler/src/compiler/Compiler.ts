@@ -170,7 +170,7 @@ export class Compiler {
                 projectDir: dirname(config?.configFilePath ?? tsconfig.raw?.configFilePath ?? this.system.getCurrentDirectory()),
                 system: this.system,
                 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                program: this.program!,
+                program: this.program ?? this.langService.getProgram()!,
                 tsconfig: { ...tsconfig, options: { ...project, ...options } },
                 rootFiles: this.getRootFiles(),
                 reporter: this.reporter,
