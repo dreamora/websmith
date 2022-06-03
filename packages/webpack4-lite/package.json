@@ -1,0 +1,61 @@
+{
+    "name": "@dreamora/websmith-webpack4-lite",
+    "description": "Webpack loader for websmith generators and processors",
+    "version": "0.1.0",
+    "author": "Marc 'Dreamora' Schaerer",
+    "main": "lib/index.js",
+    "types": "lib/index.d.ts",
+    "license": "MIT",
+    "files": [
+        "LICENSE",
+        "lib"
+    ],
+    "scripts": {
+        "clean": "rimraf lib coverage test/__data__/**/.build/",
+        "lint": "eslint \"{src,test}/**/*.{js,ts,tsx}\" --fix --color",
+        "build": "tsc",
+        "watch": "tsc --watch",
+        "test": "jest --color --verbose --coverage",
+        "test:watch": "jest --color --watch",
+        "test:e2e": "jest -c jest.e2e.config.js --color --verbose --runInBand",
+        "dist": "yarn clean && yarn lint && yarn test && cross-env-shell NODE_ENV=production \"yarn build\" && yarn test:e2e",
+        "prepublishOnly": "yarn dist",
+        "publish-npm": "npm publish --access public"
+    },
+    "devDependencies": {
+        "@types/jest": "^27.0.2",
+        "@types/node": "16",
+        "@types/react": "17.0.0",
+        "@types/react-dom": "17.0.0",
+        "@types/webpack": "4.41.32",
+        "@typescript-eslint/eslint-plugin": "^5.22.0",
+        "@typescript-eslint/parser": "^5.22.0",
+        "eslint": "^8.14.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-import-resolver-alias": "^1.1.2",
+        "eslint-plugin-import": "^2.22.1",
+        "eslint-plugin-jest": "^26.1.5",
+        "eslint-plugin-prettier": "^4.0.0",
+        "eslint-plugin-testing-library": "^5.3.1",
+        "fork-ts-checker-webpack-plugin": "7.2.11",
+        "jest": "^27.3.1",
+        "prettier": "^2.4.1",
+        "react": "17.0.2",
+        "react-dom": "17.0.2",
+        "rimraf": "^3.0.2",
+        "thread-loader": "3.0.4",
+        "ts-jest": "^27.0.7",
+        "ts-loader": "^8.2.0",
+        "typescript": "4.6.4",
+        "webpack": "4.46.0",
+        "webpack-cli": "^4.9.1"
+    },
+    "dependencies": {
+        "@quatico/websmith-cli": "^0.1.0",
+        "@quatico/websmith-compiler": "^0.1.0"
+    },
+    "engines": {
+        "node": ">=16.x",
+        "yarn": ">=1.20.x"
+    }
+}
