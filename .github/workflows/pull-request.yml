@@ -1,38 +1,124 @@
 # This workflow will run the distribution steps using node when a pull request is created or updated
 # For more information see: https://docs.github.com/en/actions/using-workflows/about-workflows
 
-name: PR Continuous Integration 
+name: PR Continuous Integration
 
 on:
-  pull_request:
-    types: [opened, reopened, synchronize]
+    pull_request:
+        types: [opened, reopened, synchronize]
 
 jobs:
-  dist:
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest]
-    runs-on: ${{ matrix.os }}
-    steps:
-      - name: checkout
-        uses: actions/checkout@v3
+    lint:
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
 
-      - name: setup
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      
-      - name: install
-        run: yarn install --frozen-lockfile
+            - name: setup
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 16
+                  cache-dependency-path: yarn.lock
 
-      - name: lint
-        run: yarn lint
+            - name: Cache node modules
+              id: cache-npm
+              uses: actions/cache@v3
+              env:
+                  cache-name: cache-node-modules
+              with:
+                  path: |
+                      node_modules
+                      packages/api/node_modules
+                      packages/cli/node_modules
+                      packages/compiler/node_modules
+                      packages/examples/node_modules
+                      packages/test/node_modules
+                  key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
+                  restore-keys: |
+                      ${{ runner.os }}-build-
+                      ${{ runner.os }}-
 
-      - name: test
-        run: yarn test
+            - name: install
+              if: steps.cache-npm.outputs.cache-hit != 'true'
+              run: yarn install --frozen-lockfile
 
-      - name: build
-        run: yarn build
+            - name: cache linted project
+              id: cache-linted-project
+              uses: actions/cache@v3
+              env:
+                  cache-name: cache-linted-source
+              with:
+                  path: |
+                      packages/api/src
+                      packages/cli/src
+                      packages/compiler/src
+                      packages/examples/src
+                      packages/test/src
+                  key: ${{ github.head_ref}}.${{ github.sha }}-linted
 
-      - name: E2E tests
-        run: yarn test:e2e
+            - name: lint
+              if: steps.cache-linted-project.outputs.cache-hit != 'true'
+              run: yarn lint
+
+    dist:
+        needs: lint
+        strategy:
+            matrix:
+                os: [ubuntu-latest, windows-latest]
+        runs-on: ${{ matrix.os }}
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+
+            - name: setup
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 16
+                  cache-dependency-path: yarn.lock
+
+            - name: Cache node modules
+              id: cache-npm
+              uses: actions/cache@v3
+              env:
+                  cache-name: cache-node-modules
+              with:
+                  path: |
+                      node_modules
+                      packages/api/node_modules
+                      packages/cli/node_modules
+                      packages/compiler/node_modules
+                      packages/examples/node_modules
+                      packages/test/node_modules
+                  key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
+                  restore-keys: |
+                      ${{ runner.os }}-build-
+                      ${{ runner.os }}-
+
+            - name: install
+              if: steps.cache-npm.outputs.cache-hit != 'true'
+              run: yarn install --frozen-lockfile
+
+            - name: cache linted project
+              id: cache-linted-project
+              uses: actions/cache@v3
+              env:
+                  cache-name: cache-linted-source
+              with:
+                  path: |
+                      packages/api/src
+                      packages/cli/src
+                      packages/compiler/src
+                      packages/examples/src
+                      packages/test/src
+                  key: ${{ github.head_ref}}.${{ github.sha }}-linted
+
+            - name: test
+              run: yarn test
+              continue-on-error: true
+
+            - name: build
+              run: yarn build
+
+            - name: E2E tests
+              run: yarn test:e2e
+              continue-on-error: true
