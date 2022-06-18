@@ -73,7 +73,6 @@ describe("createCompileHost", () => {
             const actual = target.getCanonicalFileName("/zip/zap/zup/something.js");
 
             expect(actual).toBe(expected.getCanonicalFileName("/zip/zap/zup/something.js"));
-            expect(actual).toBe(path.normalize("/zip/zap/zup/something.js"));
         });
 
         it("returns normalized filename with camelcase file path", () => {
@@ -100,7 +99,7 @@ describe("createCompileHost", () => {
         it("returns lib.d.ts w/o build target", () => {
             const actual = target.getDefaultLibFileName(options);
 
-            expect(actual).toBe("/lib.d.ts");
+            expect(actual).toBe(path.join(path.sep, "lib.d.ts"));
         });
     });
 
@@ -127,7 +126,7 @@ describe("createCompileHost", () => {
 
     describe("getNewLine", () => {
         it("return same new line character", () => {
-            expect(target.getNewLine()).toBe(expected.getNewLine());
+            expect(target.getNewLine()).toBe("\n");
         });
     });
 
