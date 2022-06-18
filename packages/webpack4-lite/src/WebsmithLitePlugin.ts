@@ -4,12 +4,9 @@
  *   Licensed under the MIT License. See LICENSE in the project root for license information.
  * ---------------------------------------------------------------------------------------------
  */
-import { createOptions } from "@quatico/websmith-cli";
 import { readFileSync } from "fs";
 import webpack, { Compiler, Stats } from "webpack";
 import { contribute } from "./CompilationQueue";
-import { getInstanceFromCache, setInstanceInCache } from "./instance-cache";
-import { LiteCompiler } from "./LiteCompiler";
 import uPath from "./Upath";
 import Compilation = webpack.compilation.Compilation;
 
@@ -67,21 +64,23 @@ export class WebsmithLitePlugin {
             const websmithConfig = readFileSync(this.config.config).toString();
             const config = {
                 ...JSON.parse(websmithConfig),
-                ...this.config,
+                // ...this.config,
+                config: "websmith.config.json",
 
                 ...(loaderContext._module && { warn: (err: Error) => loaderContext._module?.addWarning(err) }),
                 ...(loaderContext._module && { error: (err: Error) => loaderContext._module?.addError(err) }),
             };
 
+            console.error(`Plugin Config: ${JSON.stringify(config)}`);
             loaderContext.pluginConfig = config;
 
-            if (loaderContext) {
-                const instance: LiteCompiler =
-                    getInstanceFromCache(compilation.compiler, loaderContext) ??
-                    new LiteCompiler(createOptions(config), config, this.config.webpackTarget);
-                setInstanceInCache(compilation.compiler, loaderContext, instance);
-            }
-            return loaderContext._module;
+            // if (loaderContext) {
+            //     const instance: LiteCompiler =
+            //         getInstanceFromCache(compilation.compiler, loaderContext) ??
+            //         new LiteCompiler(createOptions(config), config, this.config.webpackTarget);
+            //     setInstanceInCache(compilation.compiler, loaderContext, instance);
+            // }
+            // return loaderContext._module;
         });
     }
 }

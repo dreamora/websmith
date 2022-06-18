@@ -13,6 +13,7 @@ import { LiteCompiler } from "./LiteCompiler";
 import { WebsmithLoaderContext } from "./WebsmithLitePlugin";
 
 export default function loader(this: WebsmithLoaderContext, content: string): void {
+    console.error(`Plugin Config: ${JSON.stringify(this.pluginConfig)}`);
     const compilerOptions: CompilerOptions = createOptions(this.pluginConfig);
     const instance = initializeInstance(this, compilerOptions);
     const fragment = buildTargets(compilerOptions, instance, this.resourcePath, content);
