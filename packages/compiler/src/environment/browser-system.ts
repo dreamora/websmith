@@ -6,7 +6,7 @@
  */
 // @ts-ignore no type declarations
 import createHashFn from "create-hash";
-import { extname, isAbsolute, join, normalize } from "path";
+import { extname, isAbsolute, join, normalize } from "path-browserify";
 import ts from "typescript";
 import { tsLibDefaults } from "../compiler";
 

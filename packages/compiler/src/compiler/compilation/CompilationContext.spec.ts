@@ -4,6 +4,7 @@
  *   Licensed under the MIT License. See LICENSE in the project root for license information.
  * ---------------------------------------------------------------------------------------------
  */
+import path from "path";
 import ts from "typescript";
 import { ReporterMock } from "../../../test";
 import { createBrowserSystem } from "../../environment";
@@ -196,7 +197,7 @@ describe("resolvePath", () => {
     it("should resolve absolute path w/ relative path", () => {
         const actual = testObj.resolvePath("./one.ts");
 
-        expect(actual).toBe("/expected/one.ts");
+        expect(actual).toBe(path.join(path.sep,"expected","one.ts"));
     });
 });
 
