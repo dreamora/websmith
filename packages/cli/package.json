@@ -52,7 +52,7 @@
         "@quatico/websmith-api": "^0.2.2",
         "@quatico/websmith-compiler": "^0.2.2",
         "commander": "^9.1.0",
-        "ts-node": "10.7.0",
+        "ts-node": "10.8.2",
         "typescript": "4.7.4"
     },
     "engines": {
