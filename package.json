@@ -63,7 +63,7 @@
         "eslint-plugin-jest": "^26.1.3",
         "eslint-plugin-prettier": "^4.0.0",
         "eslint-plugin-testing-library": "^5.2.0",
-        "husky": "7.0.4",
+        "husky": "8.0.1",
         "jest": "27.5.1",
         "jest-cucumber": "3.0.1",
         "lerna": "^5.1.6",
@@ -78,7 +78,7 @@
         "commander": "^9.1.0",
         "create-hash": "1.2.0",
         "path": "0.12.7",
-        "typescript": "4.6.4"
+        "typescript": "4.7.4"
     },
     "engines": {
         "node": ">=16.x",

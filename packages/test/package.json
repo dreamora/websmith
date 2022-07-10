@@ -32,7 +32,7 @@
         "eslint-plugin-jest": "^26.1.3",
         "eslint-plugin-prettier": "^4.0.0",
         "eslint-plugin-testing-library": "^5.2.0",
-        "husky": "7.0.4",
+        "husky": "8.0.1",
         "jest": "27.5.1",
         "jest-cucumber": "3.0.1",
         "memfs": "^3.4.1",
@@ -41,13 +41,13 @@
         "prettier": "^2.6.2",
         "rimraf": "3.0.2",
         "ts-jest": "27.1.4",
-        "typescript": "4.6.4"
+        "typescript": "4.7.4"
     },
     "engines": {
         "node": ">=16.x",
         "yarn": ">=1.20.x"
     },
     "dependencies": {
-        "commander": "9.2.0"
+        "commander": "9.3.0"
     }
 }
