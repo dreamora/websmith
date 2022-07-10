@@ -48,6 +48,6 @@
         "yarn": ">=1.20.x"
     },
     "dependencies": {
-        "commander": "9.2.0"
+        "commander": "9.3.0"
     }
 }
