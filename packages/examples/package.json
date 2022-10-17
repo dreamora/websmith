@@ -27,7 +27,7 @@
         "@quatico/websmith-api": "^0.2.2",
         "@quatico/websmith-compiler": "^0.2.2",
         "@types/jest": "^27.4.1",
-        "@types/node": "16",
+        "@types/node": "18",
         "@types/react": "17.0.8",
         "@types/react-dom": "17.0.0",
         "@typescript-eslint/eslint-plugin": "^5.17.0",
